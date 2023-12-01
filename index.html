@@ -4,13 +4,79 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Books Library</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;600;700;800;900&family=Poppins:wght@300;500;600;700;800;900&family=Rubik:wght@300;500;600;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     
-    <div class="booksDetail">
-
+    <div class="title">
+        <h2>Save the Books.</h2>
     </div>
+
+    <table class="tobody" border="1px">
+        <tr>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Pages</th>
+            <th>status</th>
+        </tr>
+    </table>
+
+    <dialog id="dialog-form">
+        <form action="">
+            <div class="detail-input">
+
+                <div id="title">
+                    <div>
+                        <label for="book-title">
+                            Title:
+                        </label>
+                    </div>
+                    <input type="text" id="book-title" name="book-title">
+                </div>
+
+                <div id="author">
+                    <div>
+                        <label for="book-author">
+                            Author:
+                        </label>
+                    </div>
+                    <input type="text" name="book-author" id="book-author">
+                </div>
+
+                <div id="pages">
+                    <div>
+                        <label for="book-pages">
+                            Pages:
+                        </label>
+                    </div>
+                    <input type="text" name="book-pages" id="book-pages">
+                </div>
+
+                <div id="status">
+                    <p>Status:</p>
+                    <div>
+                        <label for="book-status" class="swtich-status">
+                            <input type="checkbox" id="book-status" name="book-status">
+                            <span class="slider-round"></span>
+                        </label>
+                    </div>
+                </div>
+
+            </div>
+
+            <div>
+                <button value="cancel" formmethod="dailog">Cancel</button>
+                <button id="confirmBtn" value="default">Confirm</button>
+            </div>
+
+        </form>
+
+    </dialog>
+    <button type="submit" class="form-btn">New Book</button>
+
 
     <script src="script.js"></script>
 </body>

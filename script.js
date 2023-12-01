@@ -1,4 +1,5 @@
-const bookDetail = document.querySelector('.booksDetail')
+const table = document.querySelector('.tobody');
+
 const myLibrary = [];
 
 function book(title, author, pages, status) {
@@ -23,33 +24,39 @@ function displayBooksLibrary() {
 }
 
 function addBookToDisplay(bookData) {
-    const bookBox = document.createElement("div")
-    bookBox.className = "book-box";
+    
+    let row = document.createElement('tr');
 
-    const bookTitle = document.createElement("h2");
-    bookTitle.className = "book-title";
-    bookTitle.textContent = bookData.title;
-    bookBox.appendChild(bookTitle);
+    let titleCell = document.createElement('td');
+    titleCell.textContent = bookData.title;
+    row.appendChild(titleCell);
 
-    const bookAuthor = document.createElement("p");
-    bookAuthor.className = "book-author";
-    bookAuthor.textContent = bookData.author;
-    bookBox.appendChild(bookAuthor);
+    let authorCell = document.createElement('td');
+    authorCell.textContent = bookData.author;
+    row.appendChild(authorCell);
 
-    const bookPages = document.createElement("p");
-    bookPages.className = "book-pages";
-    bookPages.textContent = `Pages: ${bookData.pages}`;
-    bookBox.appendChild(bookPages);
+    let pagesCell = document.createElement('td');
+    pagesCell.textContent = bookData.pages;
+    row.appendChild(pagesCell);
 
-    bookDetail.appendChild(bookBox);
+    let statusCell = document.createElement('td');
+    statusCell.textContent = bookData.status;
+    row.appendChild(statusCell);
+
+    table.appendChild(row);
 }
 
-const title = prompt("Please enter the book name");
-const author = prompt("Please enter the Authors name");
-const pages = prompt("Please enter total book pages");
+const formBtn = document.querySelector('.form-btn');
+const confirmBtn = document.querySelector("#confirmBtn");
+const dialogForm = document.querySelector('#dialog-form');
 
-addBookToLibrary(title, author, pages);
-addBookToLibrary("old book", "au1", "46");
+formBtn.addEventListener("click", () => {
+    dialogForm.showModal();
+});
+
+
+
+addBookToLibrary("old book", "au1", "49");
 addBookToLibrary("2nd", "au2", "87");
 addBookToLibrary("3rd", "au3", "789");
 
@@ -61,11 +68,9 @@ Add a “NEW BOOK” button that brings up a form allowing users to input the de
 for the new book: author, title, number of pages, whether it’s been read and 
 anything else you might want.
 
-1. Create a new button and style the page. Do not worry about the status yet.
-2. Manually create a form with fields to input the data and style it.
-3. Enable the form field when the button is clicked using javascript. So that when the 
-button is clicked form is shown to display the data.
-4. When the data is submitted in the form it should be displayed on the screen. 
-You can choose the display style before manually for it.
+1. Create a new button and create a table to input book data.(done)
+2. Manually create a form with fields to input the data.(done)
+3. When the data is submitted in the form it should be displayed on the screen. 
+4. Style the page and the form display.
 
 */
