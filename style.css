@@ -3,6 +3,8 @@ body {
     font-family: 'Montserrat', sans-serif;
     font-family: 'Poppins', sans-serif;
     font-family: 'Rubik', sans-serif;
+
+    background: linear-gradient(to right, hsl(272, 40%, 25%), hsl(309, 21%, 37%));
 }
 
 .title {
@@ -11,4 +13,78 @@ body {
     position: relative;
     top: 20px;
     padding: 30px 0;
+    color: hsl(222, 65%, 92%);
+}
+
+.container {
+    width: 50%;
+    background: hsl(204, 8%, 76%);
+    margin: 0 auto 2rem;
+}
+
+table {
+    width: 100%;
+    text-align: center;
+}
+
+th, td {
+    padding: 14px 10px;
+}
+
+th {
+    font-size: 16px;
+    font-weight: 700;
+    
+}
+
+thead {
+    font-size: 16px;
+    background-color: rgb(51, 51, 51);
+    color: hsl(222, 65%, 92%);
+}
+
+.form-btn {
+    display: grid;
+    justify-content: center;
+    margin-top: auto;
+}
+
+.btn {
+    background-color: rgb(51, 51, 51);
+    border: none;
+    color: hsl(222, 65%, 92%);
+    font-weight: 700;
+    font-size: 15px;
+    padding: 12px 24px;
+    opacity: 0.85;
+    transition: 0.2s;
+    border-radius: 15px;
+}
+
+.btn:hover {
+    cursor: pointer;
+    opacity: 1;
+    background-color: rgb(20, 20, 20);
+}
+
+.status-btn, .delete-btn {
+    border: none;
+    background-color: rgba(5, 63, 46, 0.8);
+    color: hsl(222, 65%, 92%);
+    font-weight: 700;
+    font-size: 15px;
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+
+#dialog-form {
+    border: none;
+    border-radius: 20px;
+    padding: 3rem;
+    background: rgb(75, 75, 85);
+}
+
+.book-label {
+    padding: 10px 0;
+    text-align: center;
 }

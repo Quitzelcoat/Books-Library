@@ -15,68 +15,80 @@
         <h2>Save the Books.</h2>
     </div>
 
-    <table class="tobody" border="1px">
-        <tr>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Pages</th>
-            <th>status</th>
-        </tr>
-    </table>
-
-    <dialog id="dialog-form">
-        <form action="">
-            <div class="detail-input">
-
-                <div id="title">
-                    <div>
-                        <label for="book-title">
-                            Title:
-                        </label>
+    <div class="container">
+        <table cellspacing="0" cellpadding="0" style="border-collapse: collapse;">
+            <thead>
+                <tr>
+                    <th class="heading">Title</th>
+                    <th class="heading">Author</th>
+                    <th class="heading">Pages</th>
+                    <th class="heading">Status</th>
+                    <th class="heading remove">Remove</th>
+                </tr>
+            </thead>
+            <tbody class="tobody">
+    
+            </tbody>
+    
+        </table>
+    
+        <dialog id="dialog-form">
+            <form action="">
+                <div class="detail-input">
+    
+                    <div id="title">
+                        <div class="book-label">
+                            <label for="book-title">
+                                Title
+                            </label>
+                        </div>
+                        <input type="text" id="book-title" name="bookTitle">
                     </div>
-                    <input type="text" id="book-title" name="book-title">
-                </div>
-
-                <div id="author">
-                    <div>
-                        <label for="book-author">
-                            Author:
-                        </label>
+    
+                    <div id="author">
+                        <div class="book-label">
+                            <label for="book-author">
+                                Author
+                            </label>
+                        </div>
+                        <input type="text" id="book-author" name="bookAuthor">
                     </div>
-                    <input type="text" name="book-author" id="book-author">
-                </div>
-
-                <div id="pages">
-                    <div>
-                        <label for="book-pages">
-                            Pages:
-                        </label>
+    
+                    <div id="pages">
+                        <div class="book-label">
+                            <label for="book-pages">
+                                Pages
+                            </label>
+                        </div>
+                        <input type="number" id="book-pages" name="bookPages">
                     </div>
-                    <input type="text" name="book-pages" id="book-pages">
-                </div>
-
-                <div id="status">
-                    <p>Status:</p>
-                    <div>
-                        <label for="book-status" class="swtich-status">
-                            <input type="checkbox" id="book-status" name="book-status">
-                            <span class="slider-round"></span>
-                        </label>
+    
+                    <div id="status">
+                        <p>Read The Book</p>
+                        <div>
+                            <label for="book-status" class="swtich-status">
+                                <input type="checkbox" id="book-status" name="bookStatus">
+                                <span class="slider-round"></span>
+                            </label>
+                        </div>
                     </div>
+    
                 </div>
-
-            </div>
-
-            <div>
-                <button value="cancel" formmethod="dailog">Cancel</button>
-                <button id="confirmBtn" value="default">Confirm</button>
-            </div>
-
-        </form>
-
-    </dialog>
-    <button type="submit" class="form-btn">New Book</button>
-
+    
+                <div>
+                    <button value="cancel" formmethod="dailog">Cancel</button>
+                    <button id="confirmBtn" value="default">Confirm</button>
+                </div>
+    
+            </form>
+    
+        </dialog>
+    
+    </div>
+    
+    <div class="form-btn">
+        <button type="submit" class="btn">New Book</button>
+    </div>
 
     <script src="script.js"></script>
 </body>

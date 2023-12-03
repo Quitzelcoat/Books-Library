@@ -1,5 +1,7 @@
 const table = document.querySelector('.tobody');
-
+const formBtn = document.querySelector('.form-btn');
+const dialogForm = document.querySelector('#dialog-form');
+const confirmBtn = document.querySelector("#confirmBtn");
 const myLibrary = [];
 
 function book(title, author, pages, status) {
@@ -8,23 +10,36 @@ function book(title, author, pages, status) {
     this.pages = pages;
     this.status = status;
 
+    this.toggleStatus = function() {
+        this.status = this.status === 'Read' ? 'Not Read' : 'Read';
+    }
 }
 
-function addBookToLibrary(title, author, pages, status)  {
-    const bookData = new book(title, author, pages, status);
-    myLibrary.push(bookData);
-    console.log(myLibrary);
-    console.log(bookData);
+function getCheckStatus() {
+    const bookStatus = document.getElementById("book-status");
+    return bookStatus.checked ? "Read" : "Not Read";
+}
+
+function addBookToLibrary(title, author, pages, status) {
+    const existingBook = myLibrary.findIndex(book => book.title === title);
+    if (existingBook !== -1) {
+        myLibrary[existingBook].author = author;
+        myLibrary[existingBook].pages = pages;
+    } else {
+        const bookData = new book(title, author, pages, status);
+        myLibrary.push(bookData);
+    }
 }
 
 function displayBooksLibrary() {
+    table.innerHTML = "";
     for(let i = 0; i < myLibrary.length; i++) {
         addBookToDisplay(myLibrary[i]);
     }
 }
 
-function addBookToDisplay(bookData) {
-    
+function addBookToDisplay(bookData) {    
+
     let row = document.createElement('tr');
 
     let titleCell = document.createElement('td');
@@ -40,37 +55,74 @@ function addBookToDisplay(bookData) {
     row.appendChild(pagesCell);
 
     let statusCell = document.createElement('td');
-    statusCell.textContent = bookData.status;
+    let statusBtn = document.createElement('button');
+    statusBtn.setAttribute('class', 'status-btn');
+    statusBtn.setAttribute('id', 'status-check');
+    statusBtn.textContent = bookData.status;
+    statusBtn.addEventListener("click", () => {
+        bookData.toggleStatus();
+        displayBooksLibrary();
+    });
+    statusCell.appendChild(statusBtn);
     row.appendChild(statusCell);
+
+    let deleteCell = document.createElement('td');
+    let deleteBtn = document.createElement('button');
+    deleteBtn.setAttribute('class', 'delete-btn');
+    deleteBtn.innerHTML = "Delete Book";
+    deleteBtn.addEventListener("click", (e) => {
+        const row = e.target.closest('tr');
+        const bookTitle = row.querySelector('td:first-child').textContent;
+        const bookIndex = myLibrary.findIndex(book => book.title === bookTitle);
+        myLibrary.splice(bookIndex, 1);
+        displayBooksLibrary();
+    });
+    deleteCell.appendChild(deleteBtn);
+    row.appendChild(deleteCell);
 
     table.appendChild(row);
 }
-
-const formBtn = document.querySelector('.form-btn');
-const confirmBtn = document.querySelector("#confirmBtn");
-const dialogForm = document.querySelector('#dialog-form');
 
 formBtn.addEventListener("click", () => {
     dialogForm.showModal();
 });
 
+confirmBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    const inputTitle = document.getElementById("book-title").value;
+    const inputAuthor = document.getElementById("book-author").value;
+    const inputPages = document.getElementById("book-pages").value;
+    const inputStatus = getCheckStatus();
+    
+    addBookToLibrary(inputTitle, inputAuthor, inputPages, inputStatus);
+
+    const statusBtnId = 'status-check';
+    const updateStatusBtn = document.getElementById(statusBtnId);
+    if(updateStatusBtn) {
+        updateStatusBtn.textContent = inputStatus;
+    }
+
+    displayBooksLibrary();
+    document.getElementById("dialog-form").querySelector("form").reset();
+    dialogForm.close();
+    
+});
 
 
-addBookToLibrary("old book", "au1", "49");
-addBookToLibrary("2nd", "au2", "87");
-addBookToLibrary("3rd", "au3", "789");
+addBookToLibrary("fdas", "gfd", "89", "Status");
 
 window.addEventListener('load', displayBooksLibrary);
 
 /*
 
-Add a “NEW BOOK” button that brings up a form allowing users to input the details 
-for the new book: author, title, number of pages, whether it’s been read and 
-anything else you might want.
+Add a button on each book’s display to change its read status.
+To facilitate this you will want to create the function that toggles a book’s read status on your Book prototype instance.
 
-1. Create a new button and create a table to input book data.(done)
-2. Manually create a form with fields to input the data.(done)
-3. When the data is submitted in the form it should be displayed on the screen. 
-4. Style the page and the form display.
+1. Create a button to change reading status.(Done)
+2. Create a function to toggle the status.(Done)
+3. Put the button in each row.(Done)
+4. When the button is clicked It should change the status.(Done)
+5. Update the stauts of the button according to the form.
+6. Style the buttons and the form display.
 
 */
