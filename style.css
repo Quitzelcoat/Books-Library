@@ -81,10 +81,62 @@ thead {
     border: none;
     border-radius: 20px;
     padding: 3rem;
-    background: rgb(75, 75, 85);
+    background: rgb(181, 184, 182);
 }
 
 .book-label {
     padding: 10px 0;
     text-align: center;
+    /* color: hsl(204, 8%, 76%); */
+    font-size: 22px;
+    font-weight: 700;
+}
+
+input {
+    background: rgba(22, 22, 22, 0.61);
+    border: none;
+    color: hsl(0, 0%, 91%);
+    font-size: 22px;
+    font-weight: 700;
+    height: 3vh;
+    width: 100%;
+    padding-left: 10px;
+    border-radius: 25px;
+}
+
+input:focus {
+    outline: none;
+}
+
+#status {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    justify-items: end;
+    padding: 20px 0;
+    font-size: 24px;
+    color: hsl(0, 100%, 24%);
+    font-weight: 700;
+}
+
+#book-status {
+    height: 25px;
+    width: 25px;
+    background-color: transparent;
+}
+
+.display-btn {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-items: center;
+}
+
+#confirmBtn, #cancel {
+    border-radius: 25px;
+    border: none;
+    background-color: rgba(63, 5, 46, 0.8);
+    font-size: 22px;
+    font-weight: 700;
+    color: hsl(222, 65%, 92%);
+    padding: 10px 20px;
 }

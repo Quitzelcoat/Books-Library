@@ -109,20 +109,4 @@ confirmBtn.addEventListener("click", (e) => {
 });
 
 
-addBookToLibrary("fdas", "gfd", "89", "Status");
-
 window.addEventListener('load', displayBooksLibrary);
-
-/*
-
-Add a button on each book’s display to change its read status.
-To facilitate this you will want to create the function that toggles a book’s read status on your Book prototype instance.
-
-1. Create a button to change reading status.(Done)
-2. Create a function to toggle the status.(Done)
-3. Put the button in each row.(Done)
-4. When the button is clicked It should change the status.(Done)
-5. Update the stauts of the button according to the form.
-6. Style the buttons and the form display.
-
-*/
