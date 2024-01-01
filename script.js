@@ -4,21 +4,45 @@ const dialogForm = document.querySelector('#dialog-form');
 const confirmBtn = document.querySelector("#confirmBtn");
 const myLibrary = [];
 
-function book(title, author, pages, status) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.status = status;
+class book {
+    constructor(title, author, pages, status) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.status = status;
+    }
 
-    this.toggleStatus = function() {
+    toggleStatus() {
         this.status = this.status === 'Read' ? 'Not Read' : 'Read';
     }
 }
 
-function getCheckStatus() {
-    const bookStatus = document.getElementById("book-status");
-    return bookStatus.checked ? "Read" : "Not Read";
+// function book(title, author, pages, status) {
+//     this.title = title;
+//     this.author = author;
+//     this.pages = pages;
+//     this.status = status;
+
+//     this.toggleStatus = function() {
+//         this.status = this.status === 'Read' ? 'Not Read' : 'Read';
+//     }
+// }
+
+class getCheckStatus {
+
+    constructor() {
+        this.bookStatus = document.getElementById("book-status");
+    }
+    getStatus() {
+        return this.bookStatus.checked ? "Read" : "Not Read";
+    }
 }
+
+
+// function getCheckStatus() {
+//     const bookStatus = document.getElementById("book-status");
+//     return bookStatus.checked ? "Read" : "Not Read";
+// }
 
 function addBookToLibrary(title, author, pages, status) {
     const existingBook = myLibrary.findIndex(book => book.title === title);
@@ -92,14 +116,16 @@ confirmBtn.addEventListener("click", (e) => {
     const inputTitle = document.getElementById("book-title").value;
     const inputAuthor = document.getElementById("book-author").value;
     const inputPages = document.getElementById("book-pages").value;
-    const inputStatus = getCheckStatus();
+    const inputStatus = new getCheckStatus();
+
     
     addBookToLibrary(inputTitle, inputAuthor, inputPages, inputStatus);
 
     const statusBtnId = 'status-check';
     const updateStatusBtn = document.getElementById(statusBtnId);
     if(updateStatusBtn) {
-        updateStatusBtn.textContent = inputStatus;
+        // updateStatusBtn.textContent = inputStatus.getStatus();
+        updateStatusBtn(updateStatusBtn, inputStatus.getStatus());
     }
 
     displayBooksLibrary();
