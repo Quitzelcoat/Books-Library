@@ -17,17 +17,6 @@ class book {
     }
 }
 
-// function book(title, author, pages, status) {
-//     this.title = title;
-//     this.author = author;
-//     this.pages = pages;
-//     this.status = status;
-
-//     this.toggleStatus = function() {
-//         this.status = this.status === 'Read' ? 'Not Read' : 'Read';
-//     }
-// }
-
 class getCheckStatus {
 
     constructor() {
@@ -38,73 +27,96 @@ class getCheckStatus {
     }
 }
 
+class addBookToLibrary {
+    constructor (title, author, pages, status, myLibrary) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.status = status;
+        this.myLibrary = myLibrary;
+    }
 
-// function getCheckStatus() {
-//     const bookStatus = document.getElementById("book-status");
-//     return bookStatus.checked ? "Read" : "Not Read";
-// }
+    creatingBook() {
+        const existingBook = this.myLibrary.findIndex(book => book.title === this.title);
 
-function addBookToLibrary(title, author, pages, status) {
-    const existingBook = myLibrary.findIndex(book => book.title === title);
-    if (existingBook !== -1) {
-        myLibrary[existingBook].author = author;
-        myLibrary[existingBook].pages = pages;
-    } else {
-        const bookData = new book(title, author, pages, status);
-        myLibrary.push(bookData);
+        if(existingBook !== -1) {
+            this.myLibrary[existingBook].author = this.author;
+            this.myLibrary[existingBook].pages = this.pages;
+        } else {
+            this.myLibrary.push(this);
+        }
     }
 }
 
-function displayBooksLibrary() {
-    table.innerHTML = "";
-    for(let i = 0; i < myLibrary.length; i++) {
-        addBookToDisplay(myLibrary[i]);
+class displayBooksLibrary {
+    constructor(table) {
+        this.table = table;
+    }
+
+    displayBooks() {
+        this.table.innerHTML = "";
+        for(let i = 0; i < myLibrary.length; i++) {
+            new addBookToDisplay(myLibrary[i]);
+        }
     }
 }
+const displayLibrary = new displayBooksLibrary(table);
 
-function addBookToDisplay(bookData) {    
+class addBookToDisplay {
+    constructor(bookData) {
+        this.bookData = bookData;
 
-    let row = document.createElement('tr');
+        this.row = document.createElement('tr');
 
-    let titleCell = document.createElement('td');
-    titleCell.textContent = bookData.title;
-    row.appendChild(titleCell);
+        let titleCell = document.createElement('td');
+        titleCell.textContent = this.bookData.title;
+        this.row.appendChild(titleCell);
 
-    let authorCell = document.createElement('td');
-    authorCell.textContent = bookData.author;
-    row.appendChild(authorCell);
+        let authorCell = document.createElement('td');
+        authorCell.textContent = this.bookData.author;
+        this.row.appendChild(authorCell);
+        
+        let pagesCell = document.createElement('td');
+        pagesCell.textContent = this.bookData.pages;
+        this.row.appendChild(pagesCell);
 
-    let pagesCell = document.createElement('td');
-    pagesCell.textContent = bookData.pages;
-    row.appendChild(pagesCell);
+        let statusCell = document.createElement('td');
+        let statusBtn = document.createElement('button');
+        statusBtn.setAttribute('class', 'status-btn');
+        statusBtn.setAttribute('id', 'status-check');
+        statusBtn.textContent = this.bookData.status;
+        statusBtn.addEventListener("click", (e) => {
+            const row = e.target.closest('tr');
+            const bookTitle = row.querySelector('td:first-child').textContent;
+            const bookIndex = myLibrary.findIndex(book => book.title === bookTitle);
 
-    let statusCell = document.createElement('td');
-    let statusBtn = document.createElement('button');
-    statusBtn.setAttribute('class', 'status-btn');
-    statusBtn.setAttribute('id', 'status-check');
-    statusBtn.textContent = bookData.status;
-    statusBtn.addEventListener("click", () => {
-        bookData.toggleStatus();
-        displayBooksLibrary();
-    });
-    statusCell.appendChild(statusBtn);
-    row.appendChild(statusCell);
+            if(bookIndex !== -1) {
+                myLibrary[bookIndex].toggleStatus();
+                displayLibrary.displayBooks();
+            }
+        });
+        statusCell.appendChild(statusBtn);
+        this.row.appendChild(statusCell);
 
-    let deleteCell = document.createElement('td');
-    let deleteBtn = document.createElement('button');
-    deleteBtn.setAttribute('class', 'delete-btn');
-    deleteBtn.innerHTML = "Delete Book";
-    deleteBtn.addEventListener("click", (e) => {
-        const row = e.target.closest('tr');
-        const bookTitle = row.querySelector('td:first-child').textContent;
-        const bookIndex = myLibrary.findIndex(book => book.title === bookTitle);
-        myLibrary.splice(bookIndex, 1);
-        displayBooksLibrary();
-    });
-    deleteCell.appendChild(deleteBtn);
-    row.appendChild(deleteCell);
+        let deleteCell = document.createElement('td');
+        let deleteBtn = document.createElement('button');
+        deleteBtn.setAttribute('class', 'delete-btn');
+        deleteBtn.innerHTML = "Delete Book";
+        deleteBtn.addEventListener("click", (e) => {
+            const row = e.target.closest('tr');
+            const bookTitle = row.querySelector('td:first-child').textContent;
+            const bookIndex = myLibrary.findIndex(book => book.title === bookTitle);
+            if (bookIndex !== -1) {
+                myLibrary.splice(bookIndex, 1);
+                displayLibrary.displayBooks();
+            }
+        });
+        deleteCell.appendChild(deleteBtn);
+        this.row.appendChild(deleteCell);
+    
+        table.appendChild(this.row);
+    }
 
-    table.appendChild(row);
 }
 
 formBtn.addEventListener("click", () => {
@@ -119,20 +131,22 @@ confirmBtn.addEventListener("click", (e) => {
     const inputStatus = new getCheckStatus();
 
     
-    addBookToLibrary(inputTitle, inputAuthor, inputPages, inputStatus);
+    const newBook = new addBookToLibrary(inputTitle, inputAuthor, inputPages, inputStatus.getStatus(), myLibrary);
+    newBook.creatingBook();
 
     const statusBtnId = 'status-check';
     const updateStatusBtn = document.getElementById(statusBtnId);
     if(updateStatusBtn) {
-        // updateStatusBtn.textContent = inputStatus.getStatus();
-        updateStatusBtn(updateStatusBtn, inputStatus.getStatus());
+        updateStatusBtn.textContent = inputStatus.getStatus();
     }
 
-    displayBooksLibrary();
+    const libraryDisply = new displayBooksLibrary(table);
+    libraryDisply.displayBooks();
+
     document.getElementById("dialog-form").querySelector("form").reset();
     dialogForm.close();
     
 });
 
 
-window.addEventListener('load', displayBooksLibrary);
+window.addEventListener('load', () => displayLibrary.displayBooks());
