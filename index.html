@@ -33,32 +33,26 @@
         </table>
     
         <dialog id="dialog-form">
-            <form action="">
+            <form  id="book-form" action="">
                 <div class="detail-input">
-    
                     <div id="title">
                         <div class="book-label">
-                            <label for="book-title">
-                                Title
-                            </label>
+                            <label for="book-title">Title</label>
                         </div>
                         <input type="text" id="book-title" name="bookTitle">
+                        <span class="titleError"></span>
                     </div>
     
                     <div id="author">
                         <div class="book-label">
-                            <label for="book-author">
-                                Author
-                            </label>
+                            <label for="book-author">Author</label>
                         </div>
                         <input type="text" id="book-author" name="bookAuthor">
                     </div>
     
                     <div id="pages">
                         <div class="book-label">
-                            <label for="book-pages">
-                                Pages
-                            </label>
+                            <label for="book-pages">Pages</label>
                         </div>
                         <input type="number" id="book-pages" name="bookPages">
                     </div>
@@ -72,16 +66,13 @@
                             </label>
                         </div>
                     </div>
-    
                 </div>
-    
+
                 <div class="display-btn">
-                    <button id="cancel" value="cancel" formmethod="dailog">Cancel</button>
-                    <button id="confirmBtn" value="default">Confirm</button>
+                    <button id="cancel" type="button" value="cancel" formmethod="dailog">Cancel</button>
+                    <button id="confirmBtn" type="button" value="default">Confirm</button>
                 </div>
-    
             </form>
-    
         </dialog>
     
     </div>

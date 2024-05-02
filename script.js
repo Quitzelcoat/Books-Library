@@ -88,27 +88,70 @@ formBtn.addEventListener("click", () => {
   dialogForm.showModal();
 });
 
-confirmBtn.addEventListener("click", (e) => {
-    e.preventDefault();
+function addBookBtn() {
     const inputTitle = document.getElementById("book-title").value;
     const inputAuthor = document.getElementById("book-author").value;
     const inputPages = document.getElementById("book-pages").value;
     const inputStatus = getCheckStatus();
     
     addBookToLibrary(inputTitle, inputAuthor, inputPages, inputStatus);
-
+    
     const statusBtnId = 'status-check';
     const updateStatusBtn = document.getElementById(statusBtnId);
     if(updateStatusBtn) {
         updateStatusBtn.textContent = inputStatus;
     }
-
+    
     displayBooksLibrary();
     document.getElementById("dialog-form").querySelector("form").reset();
     dialogForm.close();
-    
+}
+
+confirmBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    const form = document.getElementById("book-form");
+    const inputTitle = document.getElementById("book-title");
+
+    const inputAuthor = document.getElementById("book-author");
+    const inputPages = document.getElementById("book-pages");
+
+    if(inputTitle.value === '') {
+        inputTitle.setCustomValidity('Title is required.');
+    }else {
+        inputTitle.setCustomValidity('');
+    }
+
+    if(inputAuthor.value === '') {
+        inputAuthor.setCustomValidity("Author name is required");
+    }else if(inputAuthor.value.length > 15) {
+        inputAuthor.setCustomValidity('Author name cannot exceed 15 characters');
+    }else {
+        inputAuthor.setCustomValidity('');
+    }
+
+    if(inputPages.value === '') {
+        inputPages.setCustomValidity('Please select the number of pages');
+    }else if(isNaN(inputPages.value)) {
+        inputPages.setCustomValidity('Please select valid number of pages');
+    }else if(inputPages.value.length < 50 || inputPages.value > 1000) {
+        inputPages.setCustomValidity('Pages must be in between 50 and 1000.');
+    }else {
+        inputPages.setCustomValidity('');
+    }
+
+    if (!form.checkValidity()) { // Corrected condition for form validity check
+        form.reportValidity();
+        return;
+    }
+
+    addBookBtn();
 });
 
-window.addEventListener("load", displayBooksLibrary);
+const cancelBtn = document.getElementById('cancel');
+cancelBtn.addEventListener('click', () => {
+    dialogForm.close();
+});
 
-window.addEventListener('load', displayBooksLibrary);
+// window.addEventListener("load", displayBooksLibrary);
+// window.addEventListener('load', displayBooksLibrary);
